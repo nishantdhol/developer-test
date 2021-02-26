@@ -7,21 +7,34 @@ const INITIAL_STATE = {
   wishList: [],
 };
 
+
 // Complete the three cases below
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+
     case ADD_ITEM:
       return {
-        wishList: ,
+        ...state,
+        wishList: [...state.wishList, action.payload]
       };
+
     case DELETE_ITEM:
+      const { wishList } = state;
+      const itemIdToBeDeleted = action.payload;
+      let newWishList = [...wishList];
+      const arrayIndex = wishList.findIndex(item => item === itemIdToBeDeleted);
+
+      if (arrayIndex !== -1) {
+        newWishList.splice(arrayIndex, 1);
+       }
+
       return {
-        wishList: ,
+        ...state,
+        wishList: newWishList
       };
+
     default:
-      return {
-        wishList: ,
-      };
+      return state;
   }
 };
 
